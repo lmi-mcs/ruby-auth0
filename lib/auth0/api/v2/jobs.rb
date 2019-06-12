@@ -15,6 +15,18 @@ module Auth0
           get(path)
         end
 
+        # Retrieve error details based on the id of the job. Useful to check its status.
+        # @see https://auth0.com/docs/api/management/v2#!/Jobs/get_errors
+        # @param job_id [string] The ID of the job.
+        #
+        # @return [json] Returns the job error details.
+        def get_job_error_details(job_id)
+          raise Auth0::InvalidParameter, 'Must specify a job id' if job_id.to_s.empty?
+
+          path = "#{jobs_path}/#{job_id}/errors"
+          get(path)
+        end
+
         # gem auth0 (4.7.0)ではimport_usersがusers_fileとconnection_idしか受け付けない
         # upsert, external_id, send_completion_emailも指定する必要があるため拡張
 
